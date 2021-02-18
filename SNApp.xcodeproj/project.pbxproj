@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		927BD41325DE654300047779 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		927BD41325DE654300047779 /* SNApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		927BD41625DE654300047779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		927BD41825DE654300047779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		927BD41A25DE654300047779 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		927BD40A25DE654300047779 = {
 			isa = PBXGroup;
 			children = (
-				927BD41525DE654300047779 /* Test */,
+				927BD41525DE654300047779 /* SNApp */,
 				927BD41425DE654300047779 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +48,12 @@
 		927BD41425DE654300047779 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				927BD41325DE654300047779 /* Test.app */,
+				927BD41325DE654300047779 /* SNApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		927BD41525DE654300047779 /* Test */ = {
+		927BD41525DE654300047779 /* SNApp */ = {
 			isa = PBXGroup;
 			children = (
 				927BD41625DE654300047779 /* AppDelegate.swift */,
@@ -64,15 +64,15 @@
 				927BD42125DE654400047779 /* LaunchScreen.storyboard */,
 				927BD42425DE654400047779 /* Info.plist */,
 			);
-			path = Test;
+			path = SNApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		927BD41225DE654300047779 /* Test */ = {
+		927BD41225DE654300047779 /* SNApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 927BD42725DE654400047779 /* Build configuration list for PBXNativeTarget "Test" */;
+			buildConfigurationList = 927BD42725DE654400047779 /* Build configuration list for PBXNativeTarget "SNApp" */;
 			buildPhases = (
 				927BD40F25DE654300047779 /* Sources */,
 				927BD41025DE654300047779 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = Test;
+			name = SNApp;
 			productName = Test;
-			productReference = 927BD41325DE654300047779 /* Test.app */;
+			productReference = 927BD41325DE654300047779 /* SNApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -101,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 927BD40E25DE654300047779 /* Build configuration list for PBXProject "Test" */;
+			buildConfigurationList = 927BD40E25DE654300047779 /* Build configuration list for PBXProject "SNApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -114,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				927BD41225DE654300047779 /* Test */,
+				927BD41225DE654300047779 /* SNApp */,
 			);
 		};
 /* End PBXProject section */
@@ -322,7 +322,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		927BD40E25DE654300047779 /* Build configuration list for PBXProject "Test" */ = {
+		927BD40E25DE654300047779 /* Build configuration list for PBXProject "SNApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				927BD42525DE654400047779 /* Debug */,
@@ -331,7 +331,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		927BD42725DE654400047779 /* Build configuration list for PBXNativeTarget "Test" */ = {
+		927BD42725DE654400047779 /* Build configuration list for PBXNativeTarget "SNApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				927BD42825DE654400047779 /* Debug */,
