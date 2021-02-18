@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Test
+//  SNApp
 //
 //  Created by ALEKSANDR GRIGOREV on 18.02.2021.
 //
