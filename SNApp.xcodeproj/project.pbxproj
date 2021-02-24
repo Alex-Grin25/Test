@@ -15,6 +15,8 @@
 		927BD44A25DE6E6400047779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 927BD44825DE6E6400047779 /* LaunchScreen.storyboard */; };
 		927BD45325DE6FCD00047779 /* FirstTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45225DE6FCD00047779 /* FirstTableViewController.swift */; };
 		927BD45625DE76F500047779 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45525DE76F500047779 /* Settings.swift */; };
+		927BD45925E6559500047779 /* WebAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45825E6559500047779 /* WebAuthViewController.swift */; };
+		927BD45C25E65FDE00047779 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		927BD44B25DE6E6400047779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		927BD45225DE6FCD00047779 /* FirstTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTableViewController.swift; sourceTree = "<group>"; };
 		927BD45525DE76F500047779 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		927BD45825E6559500047779 /* WebAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthViewController.swift; sourceTree = "<group>"; };
+		927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				927BD44125DE6E6300047779 /* ViewController.swift */,
 				927BD45525DE76F500047779 /* Settings.swift */,
 				927BD44325DE6E6300047779 /* Main.storyboard */,
+				927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */,
+				927BD45825E6559500047779 /* WebAuthViewController.swift */,
 				927BD45225DE6FCD00047779 /* FirstTableViewController.swift */,
 				927BD44625DE6E6400047779 /* Assets.xcassets */,
 				927BD44825DE6E6400047779 /* LaunchScreen.storyboard */,
@@ -147,7 +153,9 @@
 				927BD44225DE6E6300047779 /* ViewController.swift in Sources */,
 				927BD43E25DE6E6300047779 /* AppDelegate.swift in Sources */,
 				927BD44025DE6E6300047779 /* SceneDelegate.swift in Sources */,
+				927BD45C25E65FDE00047779 /* GroupsTableViewController.swift in Sources */,
 				927BD45625DE76F500047779 /* Settings.swift in Sources */,
+				927BD45925E6559500047779 /* WebAuthViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
