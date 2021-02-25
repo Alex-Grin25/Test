@@ -20,18 +20,21 @@ struct Group: Codable {
     let name: String
 }
 
-class GroupsTableViewController: UITableViewController {
-    
+class GroupsTableViewController: UITableViewController, UISearchResultsUpdating {
+    let searchController = UISearchController()
     var groups:[Group] = []
+    var filteredGroups:[Group] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        searchController.searchResultsUpdater = self
+        tableView.tableHeaderView = searchController.searchBar
         
         self.refreshControl?.beginRefreshing()
         self.refresh(self)
@@ -53,6 +56,15 @@ class GroupsTableViewController: UITableViewController {
         }
         task.resume()
     }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, searchText.count >= 3 {
+            filteredGroups = groups.filter{group in
+                return group.name.lowercased().contains(searchText.lowercased())
+            }
+        }
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,13 +74,13 @@ class GroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return groups.count
+        return searchController.isActive ? filteredGroups.count : groups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "groupNameCell", for: indexPath)
 
-        cell.textLabel?.text = groups[indexPath.row].name
+        cell.textLabel?.text = (searchController.isActive ? filteredGroups : groups)[indexPath.row].name
 
         return cell
     }
