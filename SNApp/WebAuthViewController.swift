@@ -17,7 +17,7 @@ class WebAuthViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
 
         // Do any additional setup after loading the view.
-        if let url = URL(string: "https://oauth.vk.com/authorize?client_id=7771311&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,groups&response_type=token&v=5.52") {
+        if let url = URL(string: "https://oauth.vk.com/authorize?client_id=7771311&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,groups,photos&response_type=token&v=5.52") {
         let request = URLRequest(url: url)
         webView.load(request)
         }

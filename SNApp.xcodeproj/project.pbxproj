@@ -18,9 +18,14 @@
 		927BD45925E6559500047779 /* WebAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45825E6559500047779 /* WebAuthViewController.swift */; };
 		927BD45C25E65FDE00047779 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */; };
 		927BD45F25E7A98400047779 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45E25E7A98400047779 /* FriendsTableViewController.swift */; };
+		92C50AA125EE3FB300D33D09 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */; };
+		92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */; };
+		F7BB03754CB70E9D5535CB9C /* Pods_SNApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659988866AD678FC4222BF9 /* Pods_SNApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F6F72B927FD1C8F077031C6 /* Pods-SNApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNApp.release.xcconfig"; path = "Target Support Files/Pods-SNApp/Pods-SNApp.release.xcconfig"; sourceTree = "<group>"; };
+		90B9684AB2F5293E8BB0479D /* Pods-SNApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNApp.debug.xcconfig"; path = "Target Support Files/Pods-SNApp/Pods-SNApp.debug.xcconfig"; sourceTree = "<group>"; };
 		927BD43A25DE6E6300047779 /* SNApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		927BD43D25DE6E6300047779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		927BD43F25DE6E6300047779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +39,9 @@
 		927BD45825E6559500047779 /* WebAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthViewController.swift; sourceTree = "<group>"; };
 		927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 		927BD45E25E7A98400047779 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		9659988866AD678FC4222BF9 /* Pods_SNApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,17 +49,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7BB03754CB70E9D5535CB9C /* Pods_SNApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20C6F5BA1ACA8C22F1BF1557 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9659988866AD678FC4222BF9 /* Pods_SNApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B61A86C3A8420BD3755F0FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				90B9684AB2F5293E8BB0479D /* Pods-SNApp.debug.xcconfig */,
+				3F6F72B927FD1C8F077031C6 /* Pods-SNApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		927BD43125DE6E6300047779 = {
 			isa = PBXGroup;
 			children = (
 				927BD43C25DE6E6300047779 /* SNApp */,
 				927BD43B25DE6E6300047779 /* Products */,
+				8B61A86C3A8420BD3755F0FF /* Pods */,
+				20C6F5BA1ACA8C22F1BF1557 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +100,8 @@
 				927BD44125DE6E6300047779 /* ViewController.swift */,
 				927BD45525DE76F500047779 /* Settings.swift */,
 				927BD44325DE6E6300047779 /* Main.storyboard */,
+				92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */,
+				92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */,
 				927BD45B25E65FDE00047779 /* GroupsTableViewController.swift */,
 				927BD45E25E7A98400047779 /* FriendsTableViewController.swift */,
 				927BD45825E6559500047779 /* WebAuthViewController.swift */,
@@ -89,9 +120,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 927BD44E25DE6E6400047779 /* Build configuration list for PBXNativeTarget "SNApp" */;
 			buildPhases = (
+				E4E177D9E449A3203B4AFDCC /* [CP] Check Pods Manifest.lock */,
 				927BD43625DE6E6300047779 /* Sources */,
 				927BD43725DE6E6300047779 /* Frameworks */,
 				927BD43825DE6E6300047779 /* Resources */,
+				CA4BAFA54F6799E46541587C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,17 +180,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CA4BAFA54F6799E46541587C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNApp/Pods-SNApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNApp/Pods-SNApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SNApp/Pods-SNApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4E177D9E449A3203B4AFDCC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SNApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		927BD43625DE6E6300047779 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				927BD45325DE6FCD00047779 /* FirstTableViewController.swift in Sources */,
+				92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */,
 				927BD44225DE6E6300047779 /* ViewController.swift in Sources */,
 				927BD45F25E7A98400047779 /* FriendsTableViewController.swift in Sources */,
 				927BD43E25DE6E6300047779 /* AppDelegate.swift in Sources */,
 				927BD44025DE6E6300047779 /* SceneDelegate.swift in Sources */,
 				927BD45C25E65FDE00047779 /* GroupsTableViewController.swift in Sources */,
+				92C50AA125EE3FB300D33D09 /* PhotosCollectionViewController.swift in Sources */,
 				927BD45625DE76F500047779 /* Settings.swift in Sources */,
 				927BD45925E6559500047779 /* WebAuthViewController.swift in Sources */,
 			);
@@ -303,6 +380,7 @@
 		};
 		927BD44F25DE6E6400047779 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90B9684AB2F5293E8BB0479D /* Pods-SNApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -322,6 +400,7 @@
 		};
 		927BD45025DE6E6400047779 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F6F72B927FD1C8F077031C6 /* Pods-SNApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
