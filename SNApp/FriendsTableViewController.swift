@@ -8,70 +8,30 @@
 import UIKit
 import RealmSwift
 
-struct FriendsResponse: Codable {
-    struct Response: Codable {
-        let items: [Friend]
-    }
-    
-    let response: Response
-}
-
-/*
-class Friend: Object, Codable {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var first_name: String = ""
-    @objc dynamic var last_name: String = ""
-    @objc dynamic var city: City?
-    @objc dynamic var photo_50: String = ""
-    
-    class City: Object, Codable {
-        @objc dynamic var title: String = ""
-    }
-}
- */
-struct Friend: Codable {
-    let id: Int
-    let first_name: String
-    let last_name: String
-    let city: City?
-    let photo_50: String
-    
-    struct City: Codable {
-        let title: String
-    }
-}
-
-
-
-let imageAva=UIImageView(frame: CGRect(x: 25, y:25 , width: 25, height: 25))
 
 class FriendsTableViewController: UITableViewController {
-    //var friends:Results<Friend>?
-    var friends:[Friend] = []
-    
+    var friends: [Friend] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.reloadData()
+    }
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        //let realm = try! Realm
-        //friends = realm.objects(Friend.self)
-        //tableView.reloadData()
-        
-        //self.refreshControl?.beginRefreshing()
-        //self.refreshFriends(self)
+    func reloadData() {
+        self.friends = []
+        do {
+            //try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+            let realm = try Realm()
+            self.friends = Array(realm.objects(Friend.self))
+        }
+        catch {
+            print(error)
+        }
+        tableView.reloadData()
     }
 
     @IBAction func refreshFriends(_ sender: Any) {
-       
-        
-        // после загрузки мы получаем  фото как строку как отобразить его именно в ячейке
-        
         let url = URL(string: "https://api.vk.com/method/friends.get?v=5.130&fields=city,photo_50&user_id=\(Session.instance.userId)&access_token=\(Session.instance.token)")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             sleep(1)
@@ -79,8 +39,26 @@ class FriendsTableViewController: UITableViewController {
             if let friendsResponse = try? JSONDecoder().decode(FriendsResponse.self, from: data!) {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.friends = friendsResponse.response.items
-                    self.tableView.reloadData()
+                    //self.friends = friendsResponse.response.items
+                    
+                    do {
+                        let realm = try Realm()
+                        //print(realm.configuration.fileURL)
+                        realm.beginWrite()
+                        realm.delete(realm.objects(Friend.self))
+                        try realm.commitWrite()
+                        for friend in friendsResponse.response.items {
+                            realm.beginWrite()
+                            realm.add(friend)
+                            try realm.commitWrite()
+                        }
+                    }
+                    catch {
+                        print(error)
+                    }
+                    
+                    self.reloadData()
+                    //self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
             }

@@ -6,24 +6,12 @@
 //
 
 import UIKit
-
-struct GroupsResponse: Codable {
-    struct Response: Codable {
-        let items: [Group]
-    }
-    
-    let response: Response
-}
-
-struct Group: Codable {
-    let id: Int
-    let name: String
-}
+import RealmSwift
 
 class GroupsTableViewController: UITableViewController, UISearchResultsUpdating {
     let searchController = UISearchController()
-    var groups:[Group] = []
-    var filteredGroups:[Group] = []
+    var groups: [Group] = []
+    var filteredGroups: [Group] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +24,20 @@ class GroupsTableViewController: UITableViewController, UISearchResultsUpdating 
         searchController.searchResultsUpdater = self
         tableView.tableHeaderView = searchController.searchBar
         
-        self.refreshControl?.beginRefreshing()
-        self.refresh(self)
+        //self.refreshControl?.beginRefreshing()
+        //self.refresh(self)
+        self.reloadData()
+    }
+    
+    func reloadData() {
+        self.groups = []
+        do {
+            let realm = try Realm()
+            self.groups = Array(realm.objects(Group.self))
+        } catch {
+            print(error)
+        }
+        self.tableView.reloadData()
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -48,8 +48,19 @@ class GroupsTableViewController: UITableViewController, UISearchResultsUpdating 
             if let groupsResponse = try? JSONDecoder().decode(GroupsResponse.self, from: data!) {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.groups = groupsResponse.response.items
-                    self.tableView.reloadData()
+                    //self.groups = groupsResponse.response.items
+                    do {
+                        let realm = try Realm()
+                        realm.beginWrite()
+                        realm.delete(realm.objects(Group.self))
+                        for group in groupsResponse.response.items {
+                            realm.add(group)
+                        }
+                        try realm.commitWrite()
+                    } catch {
+                        print(error)
+                    }
+                    self.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
             }

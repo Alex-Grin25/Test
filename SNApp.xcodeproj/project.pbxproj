@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,8 @@
 		927BD45F25E7A98400047779 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45E25E7A98400047779 /* FriendsTableViewController.swift */; };
 		92C50AA125EE3FB300D33D09 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */; };
 		92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */; };
+		92C50AAC25F0E0A400D33D09 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AAB25F0E0A300D33D09 /* RealmData.swift */; };
+		92C50AAF25F0E0F200D33D09 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AAE25F0E0F200D33D09 /* APIModel.swift */; };
 		F7BB03754CB70E9D5535CB9C /* Pods_SNApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659988866AD678FC4222BF9 /* Pods_SNApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		927BD45E25E7A98400047779 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		92C50AAB25F0E0A300D33D09 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
+		92C50AAE25F0E0F200D33D09 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		9659988866AD678FC4222BF9 /* Pods_SNApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -70,7 +74,6 @@
 				90B9684AB2F5293E8BB0479D /* Pods-SNApp.debug.xcconfig */,
 				3F6F72B927FD1C8F077031C6 /* Pods-SNApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -106,6 +109,8 @@
 				927BD45E25E7A98400047779 /* FriendsTableViewController.swift */,
 				927BD45825E6559500047779 /* WebAuthViewController.swift */,
 				927BD45225DE6FCD00047779 /* FirstTableViewController.swift */,
+				92C50AAE25F0E0F200D33D09 /* APIModel.swift */,
+				92C50AAB25F0E0A300D33D09 /* RealmData.swift */,
 				927BD44625DE6E6400047779 /* Assets.xcassets */,
 				927BD44825DE6E6400047779 /* LaunchScreen.storyboard */,
 				927BD44B25DE6E6400047779 /* Info.plist */,
@@ -231,8 +236,10 @@
 				92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */,
 				927BD44225DE6E6300047779 /* ViewController.swift in Sources */,
 				927BD45F25E7A98400047779 /* FriendsTableViewController.swift in Sources */,
+				92C50AAF25F0E0F200D33D09 /* APIModel.swift in Sources */,
 				927BD43E25DE6E6300047779 /* AppDelegate.swift in Sources */,
 				927BD44025DE6E6300047779 /* SceneDelegate.swift in Sources */,
+				92C50AAC25F0E0A400D33D09 /* RealmData.swift in Sources */,
 				927BD45C25E65FDE00047779 /* GroupsTableViewController.swift in Sources */,
 				92C50AA125EE3FB300D33D09 /* PhotosCollectionViewController.swift in Sources */,
 				927BD45625DE76F500047779 /* Settings.swift in Sources */,

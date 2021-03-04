@@ -6,38 +6,65 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "PhotoCell"
 
-struct PhotosResponse: Codable {
-    struct Error: Codable {
-        let error_code: Int
-        let error_msg: String
-    }
-    struct Response: Codable {
-        let items: [Photo]
-    }
-    
-    let response: Response?
-    let error: Error?
-}
-
-struct Photo: Codable {
-    struct Size: Codable {
-        let height: Int
-        let width: Int
-        let url: String
-        let type: String
-    }
-    
-    let id: Int
-    let sizes: [Size]
-}
-
 class PhotosCollectionViewController: UICollectionViewController {
 
-    var userId: Int?
-    var photos:[Photo] = []
+    var userId: Int = 0
+    var photos: [Photo] = []
+    
+    func reloadData() {
+        /*
+        self.photos = []
+        do {
+            let realm = try Realm()
+            self.photos = Array(realm.objects(Photo.self).filter("userId == %@", userId))
+        }
+        catch {
+            print(error)
+        }
+         */
+        self.collectionView.reloadData()
+    }
+    
+    func loadFromServer() {
+        let url = URL(string: "https://api.vk.com/method/photos.getAll?v=5.130&skip_hidden=1&&owner_id=\(userId)&access_token=\(Session.instance.token)")
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            sleep(1)
+            
+            //if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) {
+            if let photosResponse = try? JSONDecoder().decode(PhotosResponse.self, from: data!) {
+              //  let photosResponse = try! JSONDecoder().decode(PhotosResponse.self, from: data!)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self, let response = photosResponse.response else { return }
+                    self.photos = photosResponse.response?.items ?? []
+                    /*
+                    do {
+                        let realm = try Realm()
+                        //print(realm.configuration.fileURL)
+                        for photo in response.items {
+                            realm.beginWrite()
+                            realm.add(photo)
+                            try realm.commitWrite()
+                        }
+                    }
+                    catch {
+                        print(error)
+                    }
+                    */
+                    
+                    self.reloadData()
+                    //self.refreshControl?.endRefreshing()
+                }
+            }
+            else {
+                print("Cannot parse friends response")
+            }
+        }
+        task.resume()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,26 +76,10 @@ class PhotosCollectionViewController: UICollectionViewController {
         self.collectionView!.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        if let userId = userId {
-            let url = URL(string: "https://api.vk.com/method/photos.getAll?v=5.130&skip_hidden=1&&owner_id=\(userId)&access_token=\(Session.instance.token)")
-            let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                sleep(1)
-
-                if let photosResponse = try? JSONDecoder().decode(PhotosResponse.self, from: data!) {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        self.photos = photosResponse.response?.items ?? []
-                        self.collectionView.reloadData()
-                        //self.refreshControl?.endRefreshing()
-                    }
-                }
-                else {
-                    print("Cannot parse friends response")
-                }
-            }
-            task.resume()
+        self.reloadData()
+        if self.photos.count == 0 {
+            self.loadFromServer()
         }
-        
     }
 
     /*
@@ -99,6 +110,36 @@ class PhotosCollectionViewController: UICollectionViewController {
         if let cell2 = cell as? PhotoCollectionViewCell {
             // Configure the cell
             cell2.configure()
+            cell2.imageView?.image = nil
+            
+            if let urlString = photos[indexPath.row].sizes.last?.url {
+                do {
+                    let realm = try Realm()
+                    let result = Array(realm.objects(PhotoData.self).filter("url == %@", urlString))
+                    if result.count > 0, let data = result[0].data {
+                        cell2.imageView.image = UIImage(data: data)
+                        if result.count > 1 {
+                            print("More than 1 photo in Realm for url: \(urlString)")
+                        }
+                    }
+                    else if let url = URL(string:urlString),
+                            let data = try? Data(contentsOf: url) {
+                        sleep(1)
+                        let photoData = PhotoData()
+                        photoData.url = urlString
+                        photoData.data = data
+                        
+                        realm.beginWrite()
+                        realm.add(photoData)
+                        try realm.commitWrite()
+                        
+                        cell2.imageView.image = UIImage(data: data)
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            /*
             if let urlString = photos[indexPath.row].sizes.last?.url,
                let url = URL(string: urlString),
                let data = try? Data(contentsOf: url) {
@@ -107,6 +148,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             else {
                 cell2.imageView?.image = nil
             }
+            */
         }
     
         return cell
