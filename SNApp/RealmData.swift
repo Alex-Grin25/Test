@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class Friend: Object, Codable {
     @objc dynamic var id: Int = 0
@@ -49,4 +50,43 @@ class PhotoData: Object, Codable {
 class Group: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
+    @objc dynamic var photo_100: String = ""
+    
+    convenience init(json: JSON) {
+        self.init()
+        
+        self.id = json["id"].intValue
+        self.name = json["name"].stringValue
+        self.photo_100 = json["photo_100"].stringValue
+    }
+}
+
+class Post: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var author: String = ""
+    @objc dynamic var avatar: String = ""
+    @objc dynamic var text: String = ""
+    @objc dynamic var likes: Int = 0
+    @objc dynamic var comments: Int = 0
+    
+    convenience init(json: JSON, groups: [Group]) {
+        self.init()
+        
+        self.author = "Test author"
+        let sourceId = json["source_id"].intValue
+        if (sourceId < 0) {
+            for group in groups {
+                if group.id == -sourceId {
+                    self.author = group.name
+                    self.avatar = group.photo_100
+                    break
+                }
+            }
+        }
+        
+        self.id = json["post_id"].intValue
+        self.text = json["text"].stringValue
+        self.likes = json["likes"]["count"].intValue
+        self.comments = json["comments"]["count"].intValue
+    }
 }
