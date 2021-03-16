@@ -41,31 +41,12 @@ class GroupsTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     @IBAction func refresh(_ sender: Any) {
-        let url = URL(string: "https://api.vk.com/method/groups.get?v=5.130&extended=1&user_id=\(Session.instance.userId)&access_token=\(Session.instance.token)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            sleep(1)
-
-            if let groupsResponse = try? JSONDecoder().decode(GroupsResponse.self, from: data!) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    //self.groups = groupsResponse.response.items
-                    do {
-                        let realm = try Realm()
-                        realm.beginWrite()
-                        realm.delete(realm.objects(Group.self))
-                        for group in groupsResponse.response.items {
-                            realm.add(group)
-                        }
-                        try realm.commitWrite()
-                    } catch {
-                        print(error)
-                    }
-                    self.reloadData()
-                    self.refreshControl?.endRefreshing()
-                }
-            }
+        NetworkService.instance.loadGroups { [weak self] in
+            guard let self = self else { return }
+            //self.groups = groupsResponse.response.items
+            self.reloadData()
+            self.refreshControl?.endRefreshing()
         }
-        task.resume()
     }
     
     func updateSearchResults(for searchController: UISearchController) {

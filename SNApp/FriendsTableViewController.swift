@@ -17,6 +17,10 @@ class FriendsTableViewController: UITableViewController {
         
         self.reloadData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     func reloadData() {
         self.friends = []
@@ -32,41 +36,13 @@ class FriendsTableViewController: UITableViewController {
     }
 
     @IBAction func refreshFriends(_ sender: Any) {
-        let url = URL(string: "https://api.vk.com/method/friends.get?v=5.130&fields=city,photo_50&user_id=\(Session.instance.userId)&access_token=\(Session.instance.token)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            sleep(1)
-
-            if let friendsResponse = try? JSONDecoder().decode(FriendsResponse.self, from: data!) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    //self.friends = friendsResponse.response.items
-                    
-                    do {
-                        let realm = try Realm()
-                        //print(realm.configuration.fileURL)
-                        realm.beginWrite()
-                        realm.delete(realm.objects(Friend.self))
-                        try realm.commitWrite()
-                        for friend in friendsResponse.response.items {
-                            realm.beginWrite()
-                            realm.add(friend)
-                            try realm.commitWrite()
-                        }
-                    }
-                    catch {
-                        print(error)
-                    }
-                    
-                    self.reloadData()
-                    //self.tableView.reloadData()
-                    self.refreshControl?.endRefreshing()
-                }
-            }
-            else {
-                print("Cannot parse friends response")
-            }
+        NetworkService.instance.loadFriends { [weak self] in
+            guard let self = self else { return }
+            //self.friends = friendsResponse.response.items
+            
+            self.reloadData()
+            self.refreshControl?.endRefreshing()
         }
-        task.resume()
     }
     // MARK: - Table view data source
 
@@ -85,13 +61,7 @@ class FriendsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsCell", for: indexPath)
         
         cell.textLabel?.text = "\(friends[indexPath.row].last_name) \(friends[indexPath.row].first_name) \(friends[indexPath.row].last_name)"
-        
-        if let url = URL(string: friends[indexPath.row].photo_50), let data = try? Data(contentsOf: url) {
-            cell.imageView?.image = UIImage(data: data)
-        }
-        else {
-            cell.imageView?.image = nil
-        }
+        cell.imageView?.image = CacheManager.getImage(friends[indexPath.row].photo_50)
         //cell.imageView?.image = UIImage(
         // Configure the cell...
  
@@ -143,9 +113,10 @@ class FriendsTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "FriendPhotos" {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
             let vc = segue.destination as! PhotosCollectionViewController
             if let index = tableView.indexPathForSelectedRow {
-                vc.userId = 248708684 //friends[index.row].id
+                vc.userId = friends[index.row].id // 248708684
             }
         }
     }

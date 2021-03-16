@@ -7,7 +7,6 @@
 
 import UIKit
 import RealmSwift
-import SwiftyJSON
 
 class PostsTableViewController: UITableViewController {
     var allLoaded = false
@@ -40,48 +39,12 @@ class PostsTableViewController: UITableViewController {
     }
 
     func loadPosts(count: Int, offset: Int, recreate: Bool) {
-        let url = URL(string: "https://api.vk.com/method/newsfeed.get?v=5.130&filters=post&count=\(count)&start_from=\(offset)&access_token=\(Session.instance.token)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            sleep(1)
-            
-            if let json = try? JSON(data: data!) {
-                let groupsJSON = json["response"]["groups"].arrayValue
-                var groups: [Group] = []
-                for groupJSON in groupsJSON {
-                    groups.append(Group(json: groupJSON))
-                }
-                
-                let allLoaded = json["response"]["next_from"].string == nil
-                
-                let posts = json["response"]["items"].arrayValue
-                do {
-                    let realm = try Realm()
-                    realm.beginWrite()
-                    if (recreate) {
-                        realm.delete(realm.objects(Post.self))
-                    }
-                    for postData in posts {
-                        let post = Post(json: postData, groups: groups)
-                        realm.add(post)
-                    }
-                    try realm.commitWrite()
-                }
-                catch {
-                    print(error)
-                }
-                
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.allLoaded = allLoaded
-                    self.reloadData()
-                    self.refreshControl?.endRefreshing()
-                }
-            }
-            else {
-                print("Cannot parse friends response")
-            }
+        NetworkService.instance.loadPosts(count: count, offset: offset, recreate: recreate) { [weak self] (allLoaded) in
+            guard let self = self else { return }
+            self.allLoaded = allLoaded
+            self.reloadData()
+            self.refreshControl?.endRefreshing()
         }
-        task.resume()
     }
     
     @IBAction func reload(_ sender: Any) {

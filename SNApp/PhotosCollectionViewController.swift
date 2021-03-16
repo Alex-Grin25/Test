@@ -30,40 +30,11 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     func loadFromServer() {
-        let url = URL(string: "https://api.vk.com/method/photos.getAll?v=5.130&skip_hidden=1&&owner_id=\(userId)&access_token=\(Session.instance.token)")
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            sleep(1)
-            
-            //if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) {
-            if let photosResponse = try? JSONDecoder().decode(PhotosResponse.self, from: data!) {
-              //  let photosResponse = try! JSONDecoder().decode(PhotosResponse.self, from: data!)
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self, let response = photosResponse.response else { return }
-                    self.photos = photosResponse.response?.items ?? []
-                    /*
-                    do {
-                        let realm = try Realm()
-                        //print(realm.configuration.fileURL)
-                        for photo in response.items {
-                            realm.beginWrite()
-                            realm.add(photo)
-                            try realm.commitWrite()
-                        }
-                    }
-                    catch {
-                        print(error)
-                    }
-                    */
-                    
-                    self.reloadData()
-                    //self.refreshControl?.endRefreshing()
-                }
-            }
-            else {
-                print("Cannot parse friends response")
-            }
+        NetworkService.instance.loadPhotos(userId: userId) { [weak self] (photos) in
+            guard let self = self else { return }
+            self.photos = photos ?? []
+            self.reloadData()
         }
-        task.resume()
     }
     
     override func viewDidLoad() {
@@ -113,31 +84,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             cell2.imageView?.image = nil
             
             if let urlString = photos[indexPath.row].sizes.last?.url {
-                do {
-                    let realm = try Realm()
-                    let result = Array(realm.objects(PhotoData.self).filter("url == %@", urlString))
-                    if result.count > 0, let data = result[0].data {
-                        cell2.imageView.image = UIImage(data: data)
-                        if result.count > 1 {
-                            print("More than 1 photo in Realm for url: \(urlString)")
-                        }
-                    }
-                    else if let url = URL(string:urlString),
-                            let data = try? Data(contentsOf: url) {
-                        sleep(1)
-                        let photoData = PhotoData()
-                        photoData.url = urlString
-                        photoData.data = data
-                        
-                        realm.beginWrite()
-                        realm.add(photoData)
-                        try realm.commitWrite()
-                        
-                        cell2.imageView.image = UIImage(data: data)
-                    }
-                } catch {
-                    print(error)
-                }
+                cell2.imageView.image = CacheManager.getImage(urlString)
             }
             /*
             if let urlString = photos[indexPath.row].sizes.last?.url,

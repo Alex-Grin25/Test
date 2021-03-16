@@ -33,7 +33,8 @@ class PostTableViewCell: UITableViewCell {
         self.commentsCountLabel.text  = "Comments: \(post.comments)"
         self.textView.text = post.text
         
-        self.avatarImageView.image = nil
+        self.avatarImageView.image = CacheManager.getImage(post.avatar)
+        /*
         do {
             let realm = try Realm()
             let urlString = post.avatar
@@ -59,5 +60,6 @@ class PostTableViewCell: UITableViewCell {
         } catch {
             print(error)
         }
+        */
     }
 }
