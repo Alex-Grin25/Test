@@ -40,6 +40,7 @@ class CacheManager {
     }
     
     private func getImageFromCache(_ urlString: String) -> UIImage? {
+        return nil //TODO: remove
         guard
             let fileName = getCacheURL()?.appendingPathComponent("\(urlString.hash)").path,
             let info = try? FileManager.default.attributesOfItem(atPath: fileName),
@@ -97,7 +98,31 @@ class CacheManager {
         return image
     }
     
+    func getImageAsync(_ urlString: String, completionHandler: @escaping (UIImage?) -> Void) {
+        var image: UIImage?
+        if let photo = images[urlString] {
+            image = photo
+        } else if let photo = getImageFromCache(urlString) {
+            image = photo
+        } else {
+            NetworkService.instance.loadPhotoAsync(urlString: urlString) { (image) in
+                if image != nil {
+                    self.images[urlString] = image
+                    completionHandler(image)
+                }
+            }
+        }
+        
+        if image != nil {
+            completionHandler(image)
+        }
+    }
+    
     static func getImage(_ urlString: String) -> UIImage? {
         return self.instance.getImage(urlString)
+    }
+    
+    static func getImageAsync(_ urlString: String, completionHandler: @escaping (UIImage?) -> Void) {
+        return self.instance.getImageAsync(urlString, completionHandler: completionHandler)
     }
 }

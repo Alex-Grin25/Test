@@ -44,7 +44,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         self.reloadData()
@@ -81,10 +81,9 @@ class PhotosCollectionViewController: UICollectionViewController {
         if let cell2 = cell as? PhotoCollectionViewCell {
             // Configure the cell
             cell2.configure()
-            cell2.imageView?.image = nil
             
             if let urlString = photos[indexPath.row].sizes.last?.url {
-                cell2.imageView.image = CacheManager.getImage(urlString)
+                cell2.loadImage(urlString: urlString)
             }
             /*
             if let urlString = photos[indexPath.row].sizes.last?.url,

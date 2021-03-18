@@ -9,6 +9,7 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     func configure() {
         if self.imageView == nil {
@@ -16,6 +17,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             imageView.translatesAutoresizingMaskIntoConstraints = true
             self.imageView = imageView
             self.contentView.addSubview(self.imageView)
+        }
+        self.imageView.image = nil
+    }
+    
+    func loadImage(urlString: String) {
+        self.activityIndicatorView.startAnimating()
+        CacheManager.getImageAsync(urlString) { [weak self] (image) in
+            guard let self = self else { return }
+            self.imageView.image = image
+            self.activityIndicatorView.stopAnimating()
         }
     }
 }

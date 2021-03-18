@@ -40,12 +40,30 @@ class NetworkService {
         let response: Response
     }
     
-    
+    var queue: DispatchQueue = DispatchQueue.init(label: "VK Images")
     static let instance = NetworkService()
     
     private init() {}
     
+    public func loadPhotoAsync(urlString: String, completionHandler: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        
+        DispatchQueue.global(qos: .utility).async {
+            self.queue.sync {
+                var image: UIImage?
+                sleep(3)
+                if let data = try? Data(contentsOf: url) {
+                    image = UIImage(data: data)
+                }
+                DispatchQueue.main.async {
+                    completionHandler(image)
+                }
+            }
+        }
+    }
+    
     private func runRequest(urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        
         let url = URL(string: "\(urlString)&access_token=\(Session.instance.token)")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             sleep(1)
@@ -57,6 +75,7 @@ class NetworkService {
     func loadPosts(count: Int, offset: Int, recreate: Bool, completionHandler: @escaping (Bool) -> Void) {
         let urlString = "https://api.vk.com/method/newsfeed.get?v=5.130&filters=post&count=\(count)&start_from=\(offset)"
         runRequest(urlString: urlString) { (data, response, error) in
+            
             if let json = try? JSON(data: data!) {
                 let groupsJSON = json["response"]["groups"].arrayValue
                 var groups: [Group] = []

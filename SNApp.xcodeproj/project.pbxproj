@@ -22,6 +22,7 @@
 		927BD45F25E7A98400047779 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BD45E25E7A98400047779 /* FriendsTableViewController.swift */; };
 		92A311E42600CCDB00837932 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A311E32600CCDB00837932 /* NetworkService.swift */; };
 		92A311F72600DAD100837932 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A311F62600DAD100837932 /* CacheManager.swift */; };
+		92A311FA2603533100837932 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A311F92603533100837932 /* TestViewController.swift */; };
 		92C50AA125EE3FB300D33D09 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */; };
 		92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */; };
 		92C50AAC25F0E0A400D33D09 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C50AAB25F0E0A300D33D09 /* RealmData.swift */; };
@@ -48,6 +49,7 @@
 		927BD45E25E7A98400047779 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		92A311E32600CCDB00837932 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		92A311F62600DAD100837932 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		92A311F92603533100837932 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		92C50AA025EE3FB300D33D09 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		92C50AAB25F0E0A300D33D09 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				927BD44125DE6E6300047779 /* ViewController.swift */,
 				927BD45525DE76F500047779 /* Settings.swift */,
 				927BD44325DE6E6300047779 /* Main.storyboard */,
+				92A311F92603533100837932 /* TestViewController.swift */,
 				924865C625F783400000560B /* PostTableViewCell.swift */,
 				924865C325F780E30000560B /* PostsTableViewController.swift */,
 				92C50AA325EE460700D33D09 /* PhotoCollectionViewCell.swift */,
@@ -243,6 +246,7 @@
 			files = (
 				927BD45325DE6FCD00047779 /* FirstTableViewController.swift in Sources */,
 				92A311F72600DAD100837932 /* CacheManager.swift in Sources */,
+				92A311FA2603533100837932 /* TestViewController.swift in Sources */,
 				92C50AA425EE460700D33D09 /* PhotoCollectionViewCell.swift in Sources */,
 				924865C425F780E30000560B /* PostsTableViewController.swift in Sources */,
 				927BD44225DE6E6300047779 /* ViewController.swift in Sources */,
