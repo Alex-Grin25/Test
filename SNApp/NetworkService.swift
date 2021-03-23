@@ -94,7 +94,9 @@ class NetworkService {
                     }
                     for postData in posts {
                         let post = Post(json: postData, groups: groups)
-                        realm.add(post)
+                        if post.author != "Test author" {
+                            realm.add(post)
+                        }
                     }
                     try realm.commitWrite()
                 }

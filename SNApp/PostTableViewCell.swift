@@ -15,6 +15,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var likesCountLabel: UILabel!
     @IBOutlet weak var commentsCountLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,6 +36,12 @@ class PostTableViewCell: UITableViewCell {
         self.textView.text = post.text
         
         self.avatarImageView.image = CacheManager.getImage(post.avatar)
+        
+        self.postImageView.image = nil
+        if let attachment = post.attachments.first, let photo = attachment.photo {
+            self.postImageView.image = CacheManager.getImage(photo)
+            self.postImageHeightConstraint.constant = CGFloat(attachment.height) / CGFloat(attachment.width) * self.frame.width
+        }
         /*
         do {
             let realm = try Realm()

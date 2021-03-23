@@ -68,6 +68,7 @@ class Post: Object {
     @objc dynamic var text: String = ""
     @objc dynamic var likes: Int = 0
     @objc dynamic var comments: Int = 0
+    dynamic var attachments: List<Attachment> = List<Attachment>()
     
     convenience init(json: JSON, groups: [Group]) {
         self.init()
@@ -88,5 +89,44 @@ class Post: Object {
         self.text = json["text"].stringValue
         self.likes = json["likes"]["count"].intValue
         self.comments = json["comments"]["count"].intValue
+        
+        for attachmentJSON in json["attachments"].arrayValue {
+            let attachment = Attachment(json: attachmentJSON)
+            if attachment.type != "video" {
+                self.attachments.append(Attachment(json: attachmentJSON))
+            }
+        }
+    }
+}
+
+class Attachment: Object {
+    @objc dynamic var type: String = ""
+    @objc dynamic var photo: String?
+    @objc dynamic var width: Int = 0
+    @objc dynamic var height: Int = 0
+    
+    convenience init(json: JSON) {
+        self.init()
+        
+        var size: JSON?
+        
+        self.type = json["type"].stringValue
+        if self.type == "link" {
+            size = json["link"]["photo"]["sizes"].array?.last
+        }
+        else if self.type == "photo" {
+            size = json["photo"]["sizes"].array?.last
+        }
+        else {
+            if self.type != "video" {
+                print("Unhandled attachment type: \(self.type)")
+            }
+        }
+        
+        if let size = size {
+            self.photo = size["url"].stringValue
+            self.height = size["height"].intValue
+            self.width = size["width"].intValue
+        }
     }
 }
