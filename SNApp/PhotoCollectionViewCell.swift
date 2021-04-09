@@ -14,6 +14,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     func configure() {
         if self.imageView == nil {
             let imageView = UIImageView(frame: CGRect(origin: CGPoint.zero, size: self.contentView.frame.size))
+            let x = (self.frame.size.width - imageView.frame.size.width) / 2
             imageView.translatesAutoresizingMaskIntoConstraints = true
             self.imageView = imageView
             self.contentView.addSubview(self.imageView)
